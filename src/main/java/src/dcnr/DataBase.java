@@ -10,7 +10,9 @@ public class DataBase {
 
     private static String url = "jdbc:mysql://localhost:3306/dictionary";
     private static String user = "root";
-    private static String password = "AcmaDentuthiendg666";
+
+    private static String password = "123456789";
+
 
     public DataBase() {
     }
