@@ -16,7 +16,7 @@ public class DictionaryApplication extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(DictionaryApplication.class.getResource("mainScene.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 900, 770);
-            Image favicon = new Image("file:src/main/java/images/logo.png");
+            Image favicon = new Image("file:src/main/resources/src/images/logo.png");
             stage.getIcons().add(favicon);
             stage.setTitle("Oxford Dictionary");
             stage.setScene(scene);

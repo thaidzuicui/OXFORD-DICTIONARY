@@ -23,7 +23,7 @@
                   <ListView fx:id="output" fixedCellSize="40.0" layoutX="15.0" layoutY="61.0" onMouseClicked="#displayDefinition" prefHeight="669.0" prefWidth="270.0" />
                   <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="16.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="16.0">
                       <image>
-                          <Image url="@../images/search_sb.png" />
+                          <Image url="@../../../java/images/search_sb.png" />
                       </image>
                   </ImageView>
               </children>
@@ -32,7 +32,7 @@
               <children>
                   <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="14.0">
                       <image>
-                          <Image url="@../images/definition_sb.png" />
+                          <Image url="@../../../java/images/definition_sb.png" />
                       </image>
                   </ImageView>
                   <Label layoutX="59.0" layoutY="5.0" prefHeight="50.0" prefWidth="150.0" text="Definition">
@@ -45,17 +45,17 @@
                <children>
                   <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="55.0">
                      <graphic>
-                        <ImageView fitHeight="84.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="41.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/add_sb.png" />
+                              <Image url="@../../../java/images/add_sb.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
                   <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="55.0">
                      <graphic>
-                        <ImageView fitHeight="56.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="41.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/fix_sb.png" />
+                              <Image url="@../../../java/images/fix_sb.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -64,7 +64,7 @@
                      <graphic>
                         <ImageView fitHeight="41.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/remove_sb.png" />
+                              <Image url="@../../../java/images/remove_sb.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -74,7 +74,7 @@
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/speak_sb.png" />
+                        <Image url="@../../../java/images/speak_sb.png" />
                      </image>
                   </ImageView>
                </graphic>
