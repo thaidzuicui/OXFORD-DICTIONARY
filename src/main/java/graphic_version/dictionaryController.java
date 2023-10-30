@@ -33,7 +33,7 @@ public class dictionaryController {
                     setText(null);
                 } else {
                     setText(item);
-                    setFont(Font.font(18)); // Set the font size here
+                    setFont(Font.font(16)); // Set the font size here
                 }
             }
         };
@@ -64,6 +64,7 @@ public class dictionaryController {
     private FilteredList<String> filteredWords;
     private DataBase connector = new DataBase();
     private ObservableList<String> allWords;
+
     //  private TextToSpeech textToSpeech = new TextToSpeech();
 
 
