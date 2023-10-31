@@ -67,20 +67,23 @@ public class translateController implements Initializable {
     void eng() {
         resetStyleLangFrom();
         langFromSecond.getStyleClass().add("active");
-        languageFrom = "en";
-        text1.setText("Tiếng Anh");
-        nameFrom = "Linda";
-        speakFrom = "en-gb";
+
+            languageFrom = "en";
+            text1.setText("Tiếng Anh");
+            nameFrom = "Linda";
+            speakFrom = "en-gb";
     }
 
     @FXML
     void vie1() {
         resetStyleLangFrom();
         langFromThird.getStyleClass().add("active");
-        text1.setText("Tiếng Việt");
-        languageFrom = "vi";
-        nameFrom = "Chi";
-        speakFrom = "vi-vn";
+
+            text1.setText("Tiếng Việt");
+            languageFrom = "vi";
+            nameFrom = "Chi";
+            speakFrom = "vi-vn";
+
     }
 
 //    @FXML
@@ -109,8 +112,16 @@ public class translateController implements Initializable {
         languageTo = "vi";
         nameTo = "Chi";
         speakTo = "vi-vn";
+//        if (!Objects.equals(area1.getText(), "")) {
+//            area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
+//        }
         if (!Objects.equals(area1.getText(), "")) {
-            area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
+            if (languageFrom.equals("vi")) {
+                // Nếu ngôn ngữ nguồn là tiếng Anh, bạn có thể trả về văn bản gốc
+                area2.setText(area1.getText());
+            } else {
+                area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
+            }
         }
     }
 
@@ -122,8 +133,16 @@ public class translateController implements Initializable {
         languageTo = "en";
         nameTo = "Linda";
         speakTo = "en-gb";
+//        if (!Objects.equals(area1.getText(), "")) {
+//            area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
+//        }
         if (!Objects.equals(area1.getText(), "")) {
-            area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
+            if (languageFrom.equals("en")) {
+                // Nếu ngôn ngữ nguồn là tiếng Anh, bạn có thể trả về văn bản gốc
+                area2.setText(area1.getText());
+            } else {
+                area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
+            }
         }
     }
 
@@ -168,8 +187,16 @@ public class translateController implements Initializable {
 
     @FXML
     void translate() throws IOException {
+//        if (!Objects.equals(area1.getText(), "")) {
+//            area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
+//        }
         if (!Objects.equals(area1.getText(), "")) {
-            area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
+            if (languageFrom.equals("en") && languageTo.equals("en") || languageFrom.equals("vi") && languageTo.equals("vi")) {
+                // Nếu ngôn ngữ nguồn là tiếng Anh, bạn có thể trả về văn bản gốc
+                area2.setText(area1.getText());
+            } else {
+                area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
+            }
         }
     }
 
