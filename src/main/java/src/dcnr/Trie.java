@@ -49,24 +49,29 @@ public class Trie {
     }
 
     public static void insert(String word) { // inserts a word into the trie
-        TrieNode current = root;
+        try{
+            TrieNode current = root;
 
-        word = word.toLowerCase();
+            word = word.toLowerCase();
 
-        for (char c : word.toCharArray()) {
-            int index = c - 'a';
-            if (index == -65) index = 26;
-            else if (index == -52) index = 27;
+            for (char c : word.toCharArray()) {
+                int index = c - 'a';
+                if (index == -65) index = 26;
+                else if (index == -52) index = 27;
 
-            if (current.getTrieNode()[index] == null) {
-                current.getTrieNode()[index] = new TrieNode();
+                if (current.getTrieNode()[index] == null) {
+                    current.getTrieNode()[index] = new TrieNode();
+                }
+
+                current = current.getTrieNode()[index];
             }
 
-            current = current.getTrieNode()[index];
+            current.setEnd(1);
+            current.setWord(word);
+        } catch(Exception e){
+            System.out.println(e.toString());
         }
 
-        current.setEnd(1);
-        current.setWord(word);
     }
 
     public boolean search(String word) { // searches for a word in the trie

@@ -54,6 +54,7 @@ public class dictionaryController {
         };
         output.setCellFactory(cellFactory);
 
+
         filteredWords.addAll(allWords);
         output.setItems(filteredWords);
         search.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -61,11 +62,9 @@ public class dictionaryController {
             filteredWords.clear();
 
             if (prefix.isEmpty()) {
-                // If the prefix is empty, show all words
-                filteredWords.addAll(allWords);
+                filteredWords.addAll(allWords);  // If the prefix is empty, show all words
             } else {
-                // Find words with the given prefix using the Trie
-                List<String> words = trie.findWordsWithPrefix(prefix);
+                List<String> words = trie.findWordsWithPrefix(prefix); // Find words with the given prefix using the Trie
                 filteredWords.addAll(words);
             }
 
@@ -96,8 +95,7 @@ public class dictionaryController {
         }
 
         if (!def.isEmpty()) {
-            // Load HTML content into the WebView
-            definition.getEngine().loadContent(def);
+            definition.getEngine().loadContent(def); // Load HTML content into the WebView
         }
     }
 

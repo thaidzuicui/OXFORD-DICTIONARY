@@ -23,3 +23,12 @@
 6. Run dic.sql in MySql
 7. Project Structure -> Modules -> Denpendencies -> Add JARs or Directories -> Add lib.mysql_connector
 8. Run Project in DictionaryApplication
+
+## Set up database
+1. Open data.sql in database direction
+2. Copy all data 
+3. Open Mysql 
+4. Create database named dictionary and Set as default schema
+5. Paste data 
+6. Execute
+7. Add jar file mysql-connector in lib to modules
