@@ -1,5 +1,6 @@
 # Oxford Dictionary
-This project is a dictionary designed to help Vietnamese people learn English. It provides a user-friendly interface for searching English words and retrieving their definitions in Vietnamese.
+- This project is a dictionary designed to help Vietnamese people learn English. It provides a user-friendly interface for searching English words and retrieving their definitions in Vietnamese.
+- Made by __Straw Hat__ Team.
 
 ## Features
 
