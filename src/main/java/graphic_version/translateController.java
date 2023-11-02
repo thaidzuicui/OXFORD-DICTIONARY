@@ -1,6 +1,8 @@
 package graphic_version;
+
 import cmd_version.TranslateAPI;
 import javafx.fxml.Initializable;
+import cmd_version.VoiceRSS;
 import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -33,25 +35,18 @@ public class translateController implements Initializable {
     private Button langFromSecond;
     @FXML
     private Button langFromThird;
-//    @FXML
-//    private Button langFromFourth;
 
     @FXML
     private Button langToFirst;
     @FXML
     private Button langToSecond;
-//    @FXML
-//    private Button langToThird;
-//    @FXML
-//    private Button langToFourth;
-//    @FXML
-//    private Button langToFifth;
+
 
     public void resetStyleLangFrom() {
         langFromFirst.getStyleClass().removeAll("active");
         langFromSecond.getStyleClass().removeAll("active");
         langFromThird.getStyleClass().removeAll("active");
-//        langFromFourth.getStyleClass().removeAll("active");
+
     }
 
     public void detect() {
@@ -86,22 +81,10 @@ public class translateController implements Initializable {
 
     }
 
-//    @FXML
-//    void korea() {
-//        resetStyleLangFrom();
-//        langFromFourth.getStyleClass().add("active");
-//        text1.setText("Tiếng Hàn");
-//        languageFrom = "ko";
-//        nameFrom = "Nari";
-//        speakFrom = "ko-kr";
-//    }
 
     public void resetStyleLangTo() {
         langToFirst.getStyleClass().removeAll("active");
         langToSecond.getStyleClass().removeAll("active");
-//        langToThird.getStyleClass().removeAll("active");
-//        langToFourth.getStyleClass().removeAll("active");
-//        langToFifth.getStyleClass().removeAll("active");
     }
 
     @FXML
@@ -146,44 +129,6 @@ public class translateController implements Initializable {
         }
     }
 
-//    @FXML
-//    void korea2() throws IOException {
-//        resetStyleLangTo();
-//        langToThird.getStyleClass().add("active");
-//        text2.setText("Tiếng Hàn");
-//        languageTo = "ko";
-//        nameTo = "Nari";
-//        speakTo = "ko-kr";
-//        if (!Objects.equals(area1.getText(), "")) {
-//            area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
-//        }
-//    }
-
-//    @FXML
-//    void rus() throws IOException {
-//        resetStyleLangTo();
-//        langToFourth.getStyleClass().add("active");
-//        text2.setText("Tiếng Nga");
-//        languageTo = "ru";
-//        nameTo = "Marina";
-//        speakTo = "ru-ru";
-//        if (!Objects.equals(area1.getText(), "")) {
-//            area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
-//        }
-//    }
-
-//    @FXML
-//    void chinese() throws IOException {
-//        resetStyleLangTo();
-//        langToFifth.getStyleClass().add("active");
-//        languageTo = "zh";
-//        text2.setText("Tiếng Trung");
-//        nameTo = "Luli";
-//        speakTo = "zh-cn";
-//        if (!Objects.equals(area1.getText(), "")) {
-//            area2.setText(TranslateAPI.googleTranslate(languageFrom, languageTo, area1.getText()));
-//        }
-//    }
 
     @FXML
     void translate() throws IOException {
@@ -200,23 +145,23 @@ public class translateController implements Initializable {
         }
     }
 
-//    @FXML
-//    void speak1() throws Exception {
-//        VoiceRSS.Name = nameFrom;
-//        VoiceRSS.language = speakFrom;
-//        if (!Objects.equals(area1.getText(), "")) {
-//            VoiceRSS.speakWord(area1.getText());
-//        }
-//    }
+    @FXML
+    void speak1() throws Exception {
+        VoiceRSS.Name = nameFrom;
+        VoiceRSS.language = speakFrom;
+        if (!Objects.equals(area1.getText(), "")) {
+            VoiceRSS.speakWord(area1.getText());
+        }
+    }
 
-//    @FXML
-//    void speak2() throws Exception {
-//        VoiceRSS.Name = nameTo;
-//        VoiceRSS.language = speakTo;
-//        if (!Objects.equals(area2.getText(), "")) {
-//            VoiceRSS.speakWord(area2.getText());
-//        }
-//    }
+    @FXML
+    void speak2() throws Exception {
+        VoiceRSS.Name = nameTo;
+        VoiceRSS.language = speakTo;
+        if (!Objects.equals(area2.getText(), "")) {
+            VoiceRSS.speakWord(area2.getText());
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

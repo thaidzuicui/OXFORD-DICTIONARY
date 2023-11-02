@@ -17,7 +17,7 @@
                         <Button fx:id="langFromSecond" minWidth="44.0" mnemonicParsing="false" onAction="#eng" prefHeight="30.0" prefWidth="94.0" styleClass="button-lang" text="Tiếng Anh" />
                         <Button fx:id="langFromThird" minWidth="44.0" mnemonicParsing="false" onAction="#vie1" prefHeight="30.0" prefWidth="94.0" styleClass="button-lang" text="Tiếng Việt" />
                         <!--                        <Button fx:id="langFromFourth" minWidth="44.0" mnemonicParsing="false" onAction="#korea" prefHeight="30.0" prefWidth="94.0" styleClass="button-lang" text="Tiếng Hàn" />-->
-                        <!--                        <Button mnemonicParsing="false" onAction="#speak1" styleClass="button-speak" />-->
+                        <Button mnemonicParsing="false" onAction="#speak1" styleClass="button-speak" />
                     </children>
                 </HBox>
                 <TextArea fx:id="area1" prefHeight="194.0" prefWidth="708.0" promptText="Nhập từ hoặc đoạn văn..." />
@@ -41,10 +41,7 @@
                     <children>
                         <Button fx:id="langToFirst" minWidth="44.0" mnemonicParsing="false" onAction="#vie2" prefHeight="30.0" prefWidth="94.0" styleClass="button-lang" text="Tiếng Việt" />
                         <Button fx:id="langToSecond" minWidth="44.0" mnemonicParsing="false" onAction="#eng2" prefHeight="30.0" prefWidth="94.0" styleClass="button-lang" text="Tiếng Anh" />
-                        <!--                        <Button fx:id="langToThird" minWidth="44.0" mnemonicParsing="false" onAction="#korea2" prefHeight="30.0" prefWidth="94.0" styleClass="button-lang" text="Tiếng Hàn" />-->
-                        <!--                        <Button fx:id="langToFourth" minWidth="44.0" mnemonicParsing="false" onAction="#rus" prefHeight="30.0" prefWidth="94.0" styleClass="button-lang" text="Tiếng Nga" />-->
-                        <!--                        <Button fx:id="langToFifth" minWidth="44.0" mnemonicParsing="false" onAction="#chinese" prefHeight="30.0" prefWidth="94.0" styleClass="button-lang" text="Tiếng Trung" />-->
-                        <!--                        <Button mnemonicParsing="false" onAction="#speak2" styleClass="button-speak" />-->
+                        <Button mnemonicParsing="false" onAction="#speak2" styleClass="button-speak" />
                     </children>
                 </HBox>
                 <TextField fx:id="area2" alignment="TOP_LEFT" prefHeight="205.0" prefWidth="708.0" />
