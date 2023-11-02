@@ -1,5 +1,7 @@
 package graphic_version;
 
+import cmd_version.VoiceRSS;
+import src.dcnr.DataBase;
 import javafx.collections.FXCollections;
 import src.dcnr.Database;
 import javafx.collections.ObservableList;
@@ -15,6 +17,7 @@ import src.dcnr.Trie;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 public class dictionaryController {
     @FXML
@@ -91,7 +94,10 @@ public class dictionaryController {
         String selectWord = output.getSelectionModel().getSelectedItem();
         String def = "";
         if (selectWord != null) {
-            def = database.getDefinition(selectWord);
+            search.setText(selectWord);
+        }
+        if (selectWord != null) {
+            def = DataBase.getDefinition(selectWord);
         }
 
         if (!def.isEmpty()) {
@@ -99,7 +105,20 @@ public class dictionaryController {
         }
     }
 
+    String nameFrom;
+    String speakFrom;
+
     @FXML
-    public void pronounce(ActionEvent e) {
+    public void pronounce(ActionEvent e) throws Exception {
+        nameFrom = "Linda";
+        speakFrom = "en-gb";
+        VoiceRSS.Name = nameFrom;
+        VoiceRSS.language = speakFrom;
+        if (!Objects.equals(search.getText(), "")) {
+            VoiceRSS.speakWord(search.getText());
+        }
     }
+
+
+
 }
