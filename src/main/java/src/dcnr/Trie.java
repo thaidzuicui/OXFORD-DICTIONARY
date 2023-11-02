@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class TrieNode {
-    private static final int apb = 27; // 'a'->'z' (0-25) , ' ' (26)
+    private static final int apb = 28; // 'a'->'z' (0-25) , ' ' (26) , '-' (27)
     private TrieNode[] trieNode = new TrieNode[apb];
     private int end;
     private String word;
@@ -56,6 +56,7 @@ public class Trie {
         for (char c : word.toCharArray()) {
             int index = c - 'a';
             if (index == -65) index = 26;
+            else if (index == -52) index = 27;
 
             if (current.getTrieNode()[index] == null) {
                 current.getTrieNode()[index] = new TrieNode();
@@ -74,6 +75,7 @@ public class Trie {
         for (char c : word.toCharArray()) {
             int index = c - 'a';
             if (index == -65) index = 26;
+            else if (index == -52) index = 27;
 
             if (current.getTrieNode()[index] == null) {
                 return false;
@@ -133,6 +135,7 @@ public class Trie {
         for (char c : word.toCharArray()) {
             int index = c - 'a';
             if (index == -65) index = 26;
+            else if (index == -52) index = 27;
 
             if (current.getTrieNode()[index] == null) {
                 return null;
@@ -150,12 +153,13 @@ public class Trie {
             words.add(prefix);
         }
 
-        for (int c=0 ; c<27 ; c++) {
-            int index = c ;
+        for (int c = 0; c < 28; c++) {
+            int index = c;
             TrieNode child = node.getTrieNode()[index];
 
-            char z = (char)((int)'a' + index);
-            if(index == 26) z = ' ' ;
+            char z = (char) ((int) 'a' + index);
+            if (index == 26) z = ' ';
+            else if(index == 27) z = '-';
 
             if (child != null) {
                 findWordsFromNode(child, prefix + z, words);
@@ -175,6 +179,7 @@ public class Trie {
 
         int index = word.charAt(depth) - 'a';
         if (index == -65) index = 26;
+        else if (index == -52) index = 27;
         TrieNode child = node.getTrieNode()[index];
         if (child == null) {
             return false;
