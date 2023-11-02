@@ -3,37 +3,33 @@ package src.dcnr;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DataBase {
+public class Database {
     private static Connection connection = null;
     private static PreparedStatement preparedStatement = null;
-    static ResultSet resultSet = null;
+    private static ResultSet resultSet = null;
 
     private static String url = "jdbc:mysql://localhost:3306/dictionary";
     private static String user = "root";
     private static String password = "123456789";
 
-    public DataBase() {
+    public Database() throws SQLException {
+        connect();
+
+        ArrayList<String> targets = getAll();
+
+        for (String word : targets) {
+            Trie.insert(word);
+        }
     }
 
-    private static void connect() throws SQLException {
+    private void connect() throws SQLException {
         connection = DriverManager.getConnection(url, user, password);
     }
-
-//    public void init() throws SQLException {
-//        connect();
-//
-//        ArrayList<String> targets = getAll();
-//
-//        for (String word : targets) {
-//            Trie.insert(word);
-//        }
-//    }
-
 
     public ArrayList<String> getAll() throws SQLException {
         connect();
 
-        String query = "SELECT TARGET FROM DICTIONARY.DICTIONARY ORDER BY ID";
+        String query = "SELECT TARGET FROM DICTIONARY.DICTIONARY";
 
         ArrayList<String> wordList = new ArrayList<>();
 
@@ -52,10 +48,11 @@ public class DataBase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return wordList;
     }
 
-    public static String getDefinition(String word) throws SQLException {
+    public String getDefinition(String word) throws SQLException {
         connect();
 
         String query = "SELECT DEFINITION FROM DICTIONARY.DICTIONARY WHERE TARGET = ?";
@@ -77,6 +74,7 @@ public class DataBase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return def;
     }
 }
