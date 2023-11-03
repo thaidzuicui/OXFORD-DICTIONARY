@@ -1,11 +1,7 @@
 package cmd_version;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class Dictionary extends Word {
     public Word[] words = new Word[666]; // danh sách từ vựng
@@ -102,9 +98,24 @@ public class Dictionary extends Word {
         return true;
     }
 
+    public void importF() throws IOException {
+        FileReader reader = new FileReader("src/main/java/cmd_version/wordd.txt") ;
+        String ip_word_target ;
+        String ip_word_explain ;
+        Scanner sc = new Scanner(reader) ;
 
-    public void export() throws IOException {
-        FileWriter fileWriter = new FileWriter("src/cmd_version/worddEP.txt");
+        while(sc.hasNextLine()){
+            String w = sc.nextLine() ;
+            ip_word_target = w.split("\t")[0] ;
+            ip_word_explain = w.split("\t")[1] ;
+            Word ip = new Word(ip_word_target,ip_word_explain);
+            addd(ip) ;
+        }
+        sc.close() ;
+    }
+
+    public void exportF() throws IOException {
+        FileWriter fileWriter = new FileWriter("src/main/java/cmd_version/worddEP.txt");
 
         for (int i = 0; i < cnt; i++) {
             fileWriter.write(words[i].getWord_target() + "\t" + words[i].getWord_explain() + "\n");
