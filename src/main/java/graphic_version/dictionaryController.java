@@ -1,10 +1,10 @@
 package graphic_version;
 
-import cmd_version.VoiceRSS;
 import src.dcnr.DataBase;
+//import graphic_version.TextToSpeech;
 import javafx.collections.FXCollections;
-import src.dcnr.Database;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,35 +12,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
-import src.dcnr.Trie;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 
 public class dictionaryController {
-    @FXML
-    private TextField search;
-    @FXML
-    private ListView<String> output;
-    @FXML
-    private WebView definition;
-    @FXML
-    private Button speak;
-    private ObservableList<String> filteredWords;
-    private ObservableList<String> allWords;
-    private Database database = new Database();
-    private Trie trie = new Trie();
-
-
     public dictionaryController() throws IOException, SQLException {
-        filteredWords = FXCollections.observableArrayList();
-        List<String> word = trie.getAllWords();
-        allWords = FXCollections.observableArrayList(word);
+        List<String> wordd = connector.getAll();
+        allWords = FXCollections.observableArrayList(wordd);
     }
 
-    @FXML
     public void initialize() throws SQLException {
         // custom listview
         Callback<ListView<String>, ListCell<String>> cellFactory = param -> new ListCell<String>() {
@@ -51,41 +33,47 @@ public class dictionaryController {
                     setText(null);
                 } else {
                     setText(item);
-                    setFont(Font.font(16)); // Set the font size here
+                    setFont(Font.font(18)); // Set the font size here
                 }
             }
         };
         output.setCellFactory(cellFactory);
 
-
-        filteredWords.addAll(allWords);
+        filteredWords = new FilteredList<>(allWords);
         output.setItems(filteredWords);
+
         search.textProperty().addListener((observable, oldValue, newValue) -> {
-            String prefix = newValue.toLowerCase();
-            filteredWords.clear();
-
-            if (prefix.isEmpty()) {
-                filteredWords.addAll(allWords);  // If the prefix is empty, show all words
-            } else {
-                List<String> words = trie.findWordsWithPrefix(prefix); // Find words with the given prefix using the Trie
-                filteredWords.addAll(words);
-            }
-
+            String lowerCaseFilter = newValue.toLowerCase();
+            filteredWords.setPredicate(word -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                return word.toLowerCase().startsWith(lowerCaseFilter);
+            });
         });
     }
 
     @FXML
-    public void search(ActionEvent e) {
-        String prefix = search.getText().toLowerCase();
-        filteredWords.clear();
+    private TextField search;
+    @FXML
+    private ListView<String> output;
+    @FXML
+    private WebView definition;
+    @FXML
+    private Button speak;
+    private FilteredList<String> filteredWords;
+    private DataBase connector = new DataBase();
+    private ObservableList<String> allWords;
+    //  private TextToSpeech textToSpeech = new TextToSpeech();
 
-        if (prefix.isEmpty()) {
-            // If the prefix is empty, show all words
-            filteredWords.addAll(allWords);
+
+    @FXML
+    public void search(ActionEvent e) {
+        String searchedWord = search.getText().toLowerCase();
+        if (!searchedWord.isEmpty()) {
+            filteredWords.setPredicate(word -> word.toLowerCase().startsWith(searchedWord));
         } else {
-            // Find words with the given prefix using the Trie
-            List<String> words = trie.findWordsWithPrefix(prefix);
-            filteredWords.addAll(words);
+            filteredWords.setPredicate(word -> true); // If the search field is empty, show all words.
         }
     }
 
@@ -94,31 +82,20 @@ public class dictionaryController {
         String selectWord = output.getSelectionModel().getSelectedItem();
         String def = "";
         if (selectWord != null) {
-            search.setText(selectWord);
-        }
-        if (selectWord != null) {
             def = DataBase.getDefinition(selectWord);
         }
 
         if (!def.isEmpty()) {
-            definition.getEngine().loadContent(def); // Load HTML content into the WebView
+            // Load HTML content into the WebView
+            definition.getEngine().loadContent(def);
         }
     }
-
-    String nameFrom;
-    String speakFrom;
 
     @FXML
-    public void pronounce(ActionEvent e) throws Exception {
-        nameFrom = "Linda";
-        speakFrom = "en-gb";
-        VoiceRSS.Name = nameFrom;
-        VoiceRSS.language = speakFrom;
-        if (!Objects.equals(search.getText(), "")) {
-            VoiceRSS.speakWord(search.getText());
-        }
+    public void pronounce(ActionEvent e) {
+        String selectedWord = output.getSelectionModel().getSelectedItem();
+//        if (selectedWord != null) {
+//            textToSpeech.speakWord(selectedWord);
+//        }
     }
-
-
-
 }

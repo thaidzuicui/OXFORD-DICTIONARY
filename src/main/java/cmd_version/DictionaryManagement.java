@@ -8,6 +8,7 @@ import java.util.Scanner ;
 
 public class DictionaryManagement
 {
+    // them tu bang input
     public static void insertFromCommandline ()
     {
         Scanner sc = new Scanner(System.in) ;
@@ -28,6 +29,26 @@ public class DictionaryManagement
         sc.close(); ;
     }
 
+
+    // them tu bang file
+    public static void insertFromFile () throws IOException
+    {
+        FileReader reader = new FileReader("src/cmd_version/wordd.txt") ;
+        BufferedReader bufferedReader = new BufferedReader(reader) ;
+
+        String ip_word_target ;
+        String ip_word_explain ;
+
+        while((ip_word_target=bufferedReader.readLine()) != null &&
+              (ip_word_explain=bufferedReader.readLine()) != null )
+        {
+            Word ip = new Word(ip_word_target , ip_word_explain) ;
+            Dictionary.dic.addd(ip) ;
+        }
+
+        bufferedReader.close() ;
+    }
+
     // tra cuu tu
     public static void dictionaryLookup (String search)
     {
@@ -41,7 +62,7 @@ public class DictionaryManagement
         }
     }
 
-    // tim kiem tu vung co chua chuoi x o dau
+    // tim kiem tu vung co chua x o dau
     public static void dictionarySearch (String x)
     {
         // check if wrong
@@ -53,15 +74,11 @@ public class DictionaryManagement
         }
     }
 
-    public static void insertFromFile () throws IOException
-    {
-        Dictionary.dic.importF();
-    }
 
     // xuat tu ra file
     public static void dictionaryExportToFile () throws IOException
     {
-        Dictionary.dic.exportF() ;
+        Dictionary.dic.export() ;
     }
 
 

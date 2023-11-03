@@ -3,8 +3,6 @@ module src.dcnr {
     requires javafx.fxml;
     requires java.sql;
     requires javafx.web;
-    requires voicerss.tts;
-    requires javafx.media;
 
 
     opens src.dcnr to javafx.fxml;
