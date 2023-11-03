@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="900.0" style="-fx-background-color: #f6e58d;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphic_version.quizController">
+<AnchorPane fx:id="ap" prefHeight="750.0" prefWidth="900.0" style="-fx-background-color: #f6e58d;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphic_version.quizController">
    <children>
       <Label layoutX="345.0" layoutY="14.0" text="QUIZ">
          <font>
@@ -53,5 +53,30 @@
          <font>
             <Font size="30.0" />
          </font></Label>
+      <Label fx:id="seconds_left" alignment="CENTER" contentDisplay="CENTER" layoutX="792.0" layoutY="625.0" prefHeight="110.0" prefWidth="110.0" style="-fx-background-color: #f1c40f;" text="10">
+         <font>
+            <Font name="Imprint MT Shadow" size="72.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="807.0" layoutY="593.0" prefHeight="32.0" prefWidth="80.0" text="Time :3">
+         <font>
+            <Font name="Ink Free" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="correctGuess" alignment="CENTER" layoutX="321.0" layoutY="240.0" prefHeight="130.0" prefWidth="309.0" style="-fx-background-color: #f1c40f;" text="5/5" visible="false">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+      <Label fx:id="comment" alignment="CENTER" layoutX="321.0" layoutY="370.0" prefHeight="142.0" prefWidth="309.0" style="-fx-background-color: #eccc68;" text="YOU CAN DO BETTER" visible="false">
+         <font>
+            <Font name="Cambria Math" size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="32.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchBack" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #70a1ff; -fx-background-radius: 45;" text="Back" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
