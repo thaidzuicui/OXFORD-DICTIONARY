@@ -1,9 +1,8 @@
 package graphic_version;
 
 import cmd_version.VoiceRSS;
-import src.dcnr.DataBase;
-import javafx.collections.FXCollections;
 import src.dcnr.Database;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,8 +66,12 @@ public class dictionaryController {
             if (prefix.isEmpty()) {
                 filteredWords.addAll(allWords);  // If the prefix is empty, show all words
             } else {
-                List<String> words = trie.findWordsWithPrefix(prefix); // Find words with the given prefix using the Trie
-                filteredWords.addAll(words);
+                try {
+                    List<String> words = trie.findWordsWithPrefix(prefix); // Find words with the given prefix using the Trie
+                    filteredWords.addAll(words);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
         });
@@ -97,7 +100,7 @@ public class dictionaryController {
             search.setText(selectWord);
         }
         if (selectWord != null) {
-            def = DataBase.getDefinition(selectWord);
+            def = database.getDefinition(selectWord);
         }
 
         if (!def.isEmpty()) {
@@ -118,7 +121,4 @@ public class dictionaryController {
             VoiceRSS.speakWord(search.getText());
         }
     }
-
-
-
 }

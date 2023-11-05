@@ -49,7 +49,7 @@ public class Trie {
     }
 
     public static void insert(String word) { // inserts a word into the trie
-        try{
+        try {
             TrieNode current = root;
 
             word = word.toLowerCase();
@@ -68,7 +68,7 @@ public class Trie {
 
             current.setEnd(1);
             current.setWord(word);
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
 
@@ -126,9 +126,13 @@ public class Trie {
     public List<String> findWordsWithPrefix(String prefix) { // returns a list of words with the given prefix
         List<String> words = new ArrayList<>();
 
-        TrieNode prefixNode = findPrefixNode(prefix);
-        if (prefixNode != null) {
-            findWordsFromNode(prefixNode, prefix, words);
+        try {
+            TrieNode prefixNode = findPrefixNode(prefix);
+            if (prefixNode != null) {
+                findWordsFromNode(prefixNode, prefix, words);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
 
         return words;
@@ -142,10 +146,13 @@ public class Trie {
             if (index == -65) index = 26;
             else if (index == -52) index = 27;
 
-            if (current.getTrieNode()[index] == null) {
-                return null;
+            try {
+                if (current.getTrieNode()[index] == null) {
+                    return null;
+                }
+            } catch (Exception e) {
+                System.out.println(e.toString());
             }
-
             current = current.getTrieNode()[index];
         }
 
@@ -164,7 +171,7 @@ public class Trie {
 
             char z = (char) ((int) 'a' + index);
             if (index == 26) z = ' ';
-            else if(index == 27) z = '-';
+            else if (index == 27) z = '-';
 
             if (child != null) {
                 findWordsFromNode(child, prefix + z, words);
