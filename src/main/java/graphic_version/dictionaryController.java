@@ -27,6 +27,8 @@ public class dictionaryController {
     private WebView definition;
     @FXML
     private Button speak;
+    @FXML
+    private DialogPane deleteDialog;
     private ObservableList<String> filteredWords;
     private ObservableList<String> allWords;
     private Database database = new Database();
