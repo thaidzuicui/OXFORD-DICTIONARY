@@ -140,7 +140,7 @@ public class dictionaryController implements Initializable {
     public void addWord(ActionEvent event) {
         Pair<String, String> newWord = message.addWord();
 
-        if (!(newWord.getKey().equals("") || newWord.getValue().equals(""))) {
+        if (!newWord.getKey().equals("") && !newWord.getValue().equals("")) {
             if (trie.search(newWord.getKey())) {
                 message.warning("Warning","","This word is already in the dictionary.");
                 System.out.println("This word is already in the dictionary.");
@@ -149,8 +149,12 @@ public class dictionaryController implements Initializable {
                 System.out.println("Word has been added to the dictionary.");
             }
         }
-        else {
+        else if(!newWord.getKey().equals("") || !newWord.getValue().equals("")){
             message.warning("Warning","","Please fill in all fields.");
+            System.out.println("Please fill in all fields.");
+        }
+        else {
+            System.out.println("Cancel.");
         }
     }
 
