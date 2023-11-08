@@ -13,5 +13,4 @@ module src.dcnr {
     exports graphic_version;
     opens cmd_version to javafx.fxml;
     exports cmd_version;
-
 }

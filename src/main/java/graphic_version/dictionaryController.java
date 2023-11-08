@@ -1,7 +1,11 @@
 package graphic_version;
 
 import cmd_version.VoiceRSS;
+import javafx.fxml.Initializable;
+import javafx.util.Pair;
 import src.dcnr.Database;
+import src.dcnr.Trie;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,14 +15,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
-import src.dcnr.Trie;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class dictionaryController {
+public class dictionaryController implements Initializable {
     @FXML
     private TextField search;
     @FXML
@@ -27,11 +32,16 @@ public class dictionaryController {
     private WebView definition;
     @FXML
     private Button speak;
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button fixButton;
+    @FXML
+    private Button deleteButton;
     private ObservableList<String> filteredWords;
     private ObservableList<String> allWords;
     private Database database = new Database();
     private Trie trie = new Trie();
-
 
     public dictionaryController() throws IOException, SQLException {
         filteredWords = FXCollections.observableArrayList();
@@ -39,8 +49,8 @@ public class dictionaryController {
         allWords = FXCollections.observableArrayList(word);
     }
 
-    @FXML
-    public void initialize() throws SQLException {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         // custom listview
         Callback<ListView<String>, ListCell<String>> cellFactory = param -> new ListCell<String>() {
             @Override
@@ -73,9 +83,9 @@ public class dictionaryController {
                     e.printStackTrace();
                 }
             }
-
         });
     }
+
 
     @FXML
     public void search(ActionEvent e) {
@@ -99,13 +109,17 @@ public class dictionaryController {
         if (selectWord != null) {
             search.setText(selectWord);
         }
-        if (selectWord != null) {
-            def = database.getDefinition(selectWord);
-        }
+
+//        if (selectWord != null) {
+//            def = database.getDefinition(selectWord);
+//        }
+
+        def = trie.getDefinition(selectWord);
 
         if (!def.isEmpty()) {
             definition.getEngine().loadContent(def); // Load HTML content into the WebView
         }
+
     }
 
     String nameFrom;
@@ -119,6 +133,41 @@ public class dictionaryController {
         VoiceRSS.language = speakFrom;
         if (!Objects.equals(search.getText(), "")) {
             VoiceRSS.speakWord(search.getText());
+        }
+    }
+
+    @FXML
+    public void addWord(ActionEvent event) {
+        Pair<String, String> newWord = message.addWord();
+
+        if (!(newWord.getKey().equals("") || newWord.getValue().equals(""))) {
+            if (trie.search(newWord.getKey())) {
+                message.warning("Warning","","This word is already in the dictionary.");
+                System.out.println("This word is already in the dictionary.");
+            } else {
+                Trie.insert(newWord.getKey(), newWord.getValue());
+                System.out.println("Word has been added to the dictionary.");
+            }
+        }
+        else {
+            message.warning("Warning","","Please fill in all fields.");
+        }
+    }
+
+    @FXML
+    public void deleteWord(ActionEvent event) {
+        String word = search.getText();
+        if (word != null && !word.isEmpty()) {
+            if (message.deleteWord()) {
+                trie.delete(word);
+                System.out.println("Word: " + word + " has been deleted.");
+                search.setText("");
+                definition.getEngine().loadContent("");
+            } else {
+                System.out.println("Cancel.");
+            }
+        } else {
+            System.out.println("Word is not found in dictionary.");
         }
     }
 }

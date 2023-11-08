@@ -8,6 +8,7 @@ class TrieNode {
     private TrieNode[] trieNode = new TrieNode[apb];
     private int end;
     private String word;
+    private String meaning;
 
     TrieNode() {
         for (int i = 0; i < apb; i++) {
@@ -15,6 +16,7 @@ class TrieNode {
         }
         end = 0;
         word = "";
+        meaning = "";
     }
 
     public TrieNode[] getTrieNode() {
@@ -40,6 +42,14 @@ class TrieNode {
     public void setWord(String word) {
         this.word = word;
     }
+
+    public String getMeaning() {
+        return meaning;
+    }
+
+    public void setMeaning(String meaning) {
+        this.meaning = meaning;
+    }
 }
 
 public class Trie {
@@ -48,7 +58,7 @@ public class Trie {
     public Trie() {
     }
 
-    public static void insert(String word) { // inserts a word into the trie
+    public static void insert(String word, String meaning) { // inserts a word into the trie
         try {
             TrieNode current = root;
 
@@ -68,6 +78,7 @@ public class Trie {
 
             current.setEnd(1);
             current.setWord(word);
+            current.setMeaning(meaning);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -92,9 +103,9 @@ public class Trie {
         return current != null && current.isEnd() == 1;
     }
 
-    public void fixWord(String before, String after) {
+    public void fixWord(String before, String after , String beforeMeaning, String afterMeaning) {
         delete(before);
-        insert(after);
+        insert(after,afterMeaning);
     }
 
     public void delete(String word) {
@@ -211,6 +222,28 @@ public class Trie {
             if (child != null) return false;
         }
         return true;
+    }
+
+    public String getDefinition(String word) {
+        TrieNode current = root;
+
+        for (char c : word.toCharArray()) {
+            int index = c - 'a';
+            if (index == -65) index = 26;
+            else if (index == -52) index = 27;
+
+            if (current.getTrieNode()[index] == null) {
+                return null; // Word not found in the Trie
+            }
+
+            current = current.getTrieNode()[index];
+        }
+
+        if (current.isEnd() == 1) {
+            return current.getMeaning();
+        } else {
+            return null; // Word not found in the Trie
+        }
     }
 
 }

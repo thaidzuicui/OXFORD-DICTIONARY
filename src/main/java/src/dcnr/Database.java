@@ -1,5 +1,7 @@
 package src.dcnr;
 
+import javafx.util.Pair;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -15,10 +17,10 @@ public class Database {
     public Database() throws SQLException {
         connect();
 
-        ArrayList<String> targets = getAll();
+        ArrayList<Pair<String, String>> targets = getAll();
 
-        for (String word : targets) {
-            Trie.insert(word);
+        for (Pair<String, String> word : targets) {
+            Trie.insert(word.getKey(), word.getValue());
         }
     }
 
@@ -26,20 +28,19 @@ public class Database {
         connection = DriverManager.getConnection(url, user, password);
     }
 
-    public ArrayList<String> getAll() throws SQLException {
+    public ArrayList<Pair<String, String>> getAll() throws SQLException {
         connect();
 
-        String query = "SELECT TARGET FROM DICTIONARY.DICTIONARY";
-
-        ArrayList<String> wordList = new ArrayList<>();
-
+        String query = "SELECT TARGET,DEFINITION FROM DICTIONARY.DICTIONARY";
+        ArrayList<Pair<String, String>> list = new ArrayList<>();
         try {
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 String word = resultSet.getString("target");
-                wordList.add(word);
+                String definition = resultSet.getString("definition");
+                list.add(new Pair<>(word, definition));
             }
 
             resultSet.close();
@@ -49,7 +50,7 @@ public class Database {
             e.printStackTrace();
         }
 
-        return wordList;
+        return list;
     }
 
     public String getDefinition(String word) throws SQLException {
