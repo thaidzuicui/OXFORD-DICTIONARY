@@ -103,9 +103,9 @@ public class Trie {
         return current != null && current.isEnd() == 1;
     }
 
-    public void fixWord(String before, String after , String beforeMeaning, String afterMeaning) {
+    public void fixWord(String before, String after, String afterMeaning) {
         delete(before);
-        insert(after,afterMeaning);
+        insert(after, afterMeaning);
     }
 
     public void delete(String word) {

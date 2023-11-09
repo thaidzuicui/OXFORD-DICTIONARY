@@ -142,20 +142,43 @@ public class dictionaryController implements Initializable {
 
         if (!newWord.getKey().equals("") && !newWord.getValue().equals("")) {
             if (trie.search(newWord.getKey())) {
-                message.warning("Warning","","This word is already in the dictionary.");
+                message.warning("Warning", "", "This word is already in the dictionary.");
                 System.out.println("This word is already in the dictionary.");
             } else {
                 Trie.insert(newWord.getKey(), newWord.getValue());
                 System.out.println("Word has been added to the dictionary.");
             }
-        }
-        else if(!newWord.getKey().equals("") || !newWord.getValue().equals("")){
-            message.warning("Warning","","Please fill in all fields.");
+        } else if (!newWord.getKey().equals("") || !newWord.getValue().equals("")) {
+            message.warning("Warning", "", "Please fill in all fields.");
             System.out.println("Please fill in all fields.");
-        }
-        else {
+        } else {
             System.out.println("Cancel.");
         }
+    }
+
+    @FXML
+    public void fixWord(ActionEvent event) {
+        String oldWord = search.getText();
+        String oldMeaning;
+        if (oldWord != null && !oldWord.isEmpty()) {
+            oldMeaning = trie.getDefinition(oldWord);
+
+            Pair<String, String> newWord = message.fixWord(oldWord, oldMeaning);
+
+            if (!newWord.getKey().equals("") && !newWord.getValue().equals("")) {
+                trie.fixWord(oldWord, newWord.getKey(), newWord.getValue());
+                System.out.println("Word has been changed in the dictionary.");
+            } else if (!newWord.getKey().equals("") || !newWord.getValue().equals("")) {
+                message.warning("Warning", "", "Please fill in all fields.");
+                System.out.println("Please fill in all fields.");
+            } else {
+                System.out.println("Cancel.");
+            }
+        } else {
+            message.warning("Warning", "", "No words selected");
+            System.out.println("No words selected.");
+        }
+
     }
 
     @FXML
