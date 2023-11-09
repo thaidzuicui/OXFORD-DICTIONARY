@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
@@ -34,6 +35,14 @@ public class quizController {
     private Label correctGuess;
     @FXML
     private Label comment;
+    @FXML
+    private Button bA;
+    @FXML
+    private Button bB;
+    @FXML
+    private Button bC;
+    @FXML
+    private Button bD;
     String[] questions = {
             "My English teacher is ………… the United States.",
             "They have two sons. ………. sons are students.",
@@ -126,6 +135,10 @@ public class quizController {
         optB.setText("");
         optC.setText("");
         optD.setText("");
+        bA.setDisable(true);
+        bB.setDisable(true);
+        bC.setDisable(true);
+        bD.setDisable(true);
         correctGuess.setText("(" + correct_ans + " / 5)");
         if (correct_ans == 0) comment.setText("DISAPPOINTED:(");
         if (correct_ans == 1) comment.setText("YOU CAN DO BETTER");
