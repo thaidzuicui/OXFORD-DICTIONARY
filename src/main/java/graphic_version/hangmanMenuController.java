@@ -59,9 +59,9 @@ public class hangmanMenuController {
             case 11:
                 filterDataByLength(lengthOfWord);
                 play.setDisable(false);
-                for (int i = 0; i < data.size(); i++) {
-                    System.out.println(data.get(i));
-                }
+               // for (int i = 0; i < data.size(); i++) {
+                //   System.out.println(data.get(i));
+                //}
                 break;
             default:
                 break;
