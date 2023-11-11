@@ -86,8 +86,8 @@ public class hangmanMenuController {
         stage.show();
     }
     public void readData() throws IOException {
-        File f = new File("src\\main\\resources\\com\\example\\demo2\\word.txt");
-        FileReader fr = new FileReader(f, StandardCharsets.UTF_8);
+        File f = new File("src\\main\\java\\cmd_version\\wfhm.txt");
+        FileReader fr = new FileReader(f);
         BufferedReader br = new BufferedReader(fr);
         while (true) {
             String line = br.readLine();
@@ -99,7 +99,7 @@ public class hangmanMenuController {
     }
 
     public void writeData() throws IOException {
-        File f = new File("src\\main\\resources\\com\\example\\demo2\\word.txt");
+        File f = new File("src\\main\\java\\cmd_version\\wfhm.txt");
         FileWriter fw = new FileWriter(f);
         BufferedWriter bw = new BufferedWriter(fw);
         for (String s : word) {
