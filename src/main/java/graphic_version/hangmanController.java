@@ -3,7 +3,6 @@ package graphic_version;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,19 +13,17 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Random;
-import java.util.ResourceBundle;
 
-public class hangmanController implements Initializable {
+public class hangmanController extends hangmanMenuController {
     @FXML
     private ImageView iv;
-    Image img2 = new Image(getClass().getResourceAsStream("src/main/resources/src/images/img2.png"));
-    Image img3 = new Image(getClass().getResourceAsStream("src/main/resources/src/images/img3.png"));
-    Image img4 = new Image(getClass().getResourceAsStream("src/main/resources/src/images/img4.png"));
-    Image img5 = new Image(getClass().getResourceAsStream("src/main/resources/src/images/img5.png"));
-    Image img6 = new Image(getClass().getResourceAsStream("src/main/resources/src/images/img6.png"));
-    Image img7 = new Image(getClass().getResourceAsStream("src/main/resources/src/images/img7.png"));
+    Image img2 = new Image(getClass().getResourceAsStream("img2.png"));
+    Image img3 = new Image(getClass().getResourceAsStream("img3.png"));
+    Image img4 = new Image(getClass().getResourceAsStream("img4.png"));
+    Image img5 = new Image(getClass().getResourceAsStream("img5.png"));
+    Image img6 = new Image(getClass().getResourceAsStream("img6.png"));
+    Image img7 = new Image(getClass().getResourceAsStream("img7.png"));
     @FXML
     private Label w1;
     @FXML
@@ -105,70 +102,61 @@ public class hangmanController implements Initializable {
     private Button b26;
     @FXML
     private Button tgb;
-
-    String[] data = {
-            "mexico",
-            "chelsea",
-            "manchester",
-            "mancity",
-            "arsenal"
-    };
-
-    int rd = new Random().nextInt(data.length);
-    String word = data[rd];
+    int rd = new Random().nextInt(data.size());
+    String word = data.get(rd);
+    int sizee = word.length();
     int life = 6;
 
-    public void loadQuestion() {
+    public void initialize() {
         tgb.setDisable(true);
-        if (word.length() == 10) {
-            w11.setVisible(false);
-        }
-        if (word.length() == 9) {
-            w11.setVisible(false);
-            w10.setVisible(false);
-        }
-        if (word.length() == 8) {
-            w11.setVisible(false);
-            w10.setVisible(false);
-            w9.setVisible(false);
-        }
-        if (word.length() == 7) {
-            w11.setVisible(false);
-            w10.setVisible(false);
-            w9.setVisible(false);
-            w8.setVisible(false);
-        }
-        if (word.length() == 6) {
-            w11.setVisible(false);
-            w10.setVisible(false);
-            w9.setVisible(false);
-            w8.setVisible(false);
-            w7.setVisible(false);
-        }
-        if (word.length() == 5) {
-            w11.setVisible(false);
-            w10.setVisible(false);
-            w9.setVisible(false);
-            w8.setVisible(false);
-            w7.setVisible(false);
-            w6.setVisible(false);
-        }
-        if (word.length() == 4) {
-            w11.setVisible(false);
-            w10.setVisible(false);
-            w9.setVisible(false);
-            w8.setVisible(false);
-            w7.setVisible(false);
-            w6.setVisible(false);
-            w5.setVisible(false);
+        switch (sizee) {
+            case 4:
+                w11.setVisible(false);
+                w10.setVisible(false);
+                w9.setVisible(false);
+                w8.setVisible(false);
+                w7.setVisible(false);
+                w6.setVisible(false);
+                w5.setVisible(false);
+                break;
+            case 5:
+                w11.setVisible(false);
+                w10.setVisible(false);
+                w9.setVisible(false);
+                w8.setVisible(false);
+                w7.setVisible(false);
+                w6.setVisible(false);
+                break;
+            case 6:
+                w11.setVisible(false);
+                w10.setVisible(false);
+                w9.setVisible(false);
+                w8.setVisible(false);
+                w7.setVisible(false);
+                break;
+            case 7:
+                w11.setVisible(false);
+                w10.setVisible(false);
+                w9.setVisible(false);
+                w8.setVisible(false);
+                break;
+            case 8:
+                w11.setVisible(false);
+                w10.setVisible(false);
+                w9.setVisible(false);
+                break;
+            case 9:
+                w11.setVisible(false);
+                w10.setVisible(false);
+                break;
+            case 10:
+                w11.setVisible(false);
+                break;
+            default:
+                break;
         }
     }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadQuestion();
-    }
-
+    int correct_ans = 0;
     public void checkAnswer(String str) {
         if (word.contains(str)) {
             int index = 0;
@@ -176,11 +164,44 @@ public class hangmanController implements Initializable {
                 char c = word.charAt(i);
                 if (String.valueOf(c).equals(str)) {
                     showAnswer(index, Character.toString(c));
+                    correct_ans++;
                 }
                 index++;
             }
         }
         else showImage();
+
+        if (correct_ans == word.length()) {
+            centre.setText("YOU WON!!");
+            b1.setDisable(true);
+            b2.setDisable(true);
+            b3.setDisable(true);
+            b4.setDisable(true);
+            b5.setDisable(true);
+            b6.setDisable(true);
+            b7.setDisable(true);
+            b8.setDisable(true);
+            b9.setDisable(true);
+            b10.setDisable(true);
+            b11.setDisable(true);
+            b12.setDisable(true);
+            b13.setDisable(true);
+            b14.setDisable(true);
+            b15.setDisable(true);
+            b16.setDisable(true);
+            b17.setDisable(true);
+            b18.setDisable(true);
+            b19.setDisable(true);
+            b20.setDisable(true);
+            b21.setDisable(true);
+            b22.setDisable(true);
+            b23.setDisable(true);
+            b24.setDisable(true);
+            b25.setDisable(true);
+            b26.setDisable(true);
+            tgb.setDisable(false);
+            tgb.setStyle("-fx-background-color: #a29bfe");
+        }
     }
 
     public void showAnswer(int index, String str) {
@@ -380,11 +401,10 @@ public class hangmanController implements Initializable {
     }
 
     public void playagain(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("hangman.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("hangmanMenu.fxml"));
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 }
-

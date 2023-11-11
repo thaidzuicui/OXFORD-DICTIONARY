@@ -111,6 +111,10 @@ public class quizController {
         if (ans[index] != 'B') optB.setTextFill(Color.RED);
         if (ans[index] != 'C') optC.setTextFill(Color.RED);
         if (ans[index] != 'D') optD.setTextFill(Color.RED);
+        bA.setDisable(true);
+        bB.setDisable(true);
+        bC.setDisable(true);
+        bD.setDisable(true);
         Timeline pause = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -122,6 +126,10 @@ public class quizController {
                 index++;
                 seconds = 10;
                 seconds_left.setText("10");
+                bA.setDisable(false);
+                bB.setDisable(false);
+                bC.setDisable(false);
+                bD.setDisable(false);
                 loadQuestion();
             }
         }));
