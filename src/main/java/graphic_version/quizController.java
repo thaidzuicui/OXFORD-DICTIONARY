@@ -16,7 +16,12 @@ import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class quizController {
     @FXML
@@ -43,37 +48,22 @@ public class quizController {
     private Button bC;
     @FXML
     private Button bD;
-    String[] questions = {
-            "My English teacher is ………… the United States.",
-            "They have two sons. ………. sons are students.",
-            "…..…. Jane beautiful?",
-            "He …….. a teacher.",
-            "How much ………. those pencils?"
-    };
+    String[] questions = new String[100];
+    String[] optsA = new String[100];
+    String[] optsB = new String[100];
+    String[] optsC = new String[100];
+    String[] optsD = new String[100];
+    String[] ans = new String[100];
+    int size = 0;
 
-    String[][] opts = {
-            {"from", "her", "his", "to"},
-            {"our", "her", "their", "they"},
-            {"is", "does", "are", "am"},
-            {"am", "is", "are", "does"},
-            {"is", "does", "do", "are"}
-    };
-    char[] ans = {
-            'A',
-            'C',
-            'A',
-            'B',
-            'D'
-    };
-
-    char guess;
+    String guess;
     int index = 0;
     int seconds = 10;
     int correct_ans = 0;
 
     Timeline timer;
 
-    public void initialize() {
+    public void initialize() throws IOException {
         this.timer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -87,8 +77,32 @@ public class quizController {
 
         this.timer.setCycleCount(Timeline.INDEFINITE);
 
-        // Load the first question.
+        loadData();
         loadQuestion();
+    }
+
+    public void loadData() throws IOException {
+        File f = new File("src\\main\\java\\cmd_version\\TN.txt");
+        FileReader fr = new FileReader(f, StandardCharsets.UTF_8);
+        BufferedReader br = new BufferedReader(fr);
+        while (true) {
+            String line = br.readLine();
+            if (line == null) {
+                break;
+            }
+            if (line.isEmpty()) {
+                continue;
+            }
+            questions[size] = line;
+            optsA[size] = br.readLine();
+            optsB[size] = br.readLine();
+            optsC[size] = br.readLine();
+            optsD[size] = br.readLine();
+            ans[size] = br.readLine();
+            size++;
+        }
+        fr.close();
+        br.close();
     }
 
     public void loadQuestion() {
@@ -97,20 +111,20 @@ public class quizController {
         }
         else {
             question.setText(questions[index]);
-            optA.setText(opts[index][0]);
-            optB.setText(opts[index][1]);
-            optC.setText(opts[index][2]);
-            optD.setText(opts[index][3]);
+            optA.setText(optsA[index]);
+            optB.setText(optsB[index]);
+            optC.setText(optsC[index]);
+            optD.setText(optsD[index]);
             timer.play();
         }
     }
 
     public void displayAnswer() {
         timer.stop();
-        if (ans[index] != 'A') optA.setTextFill(Color.RED);
-        if (ans[index] != 'B') optB.setTextFill(Color.RED);
-        if (ans[index] != 'C') optC.setTextFill(Color.RED);
-        if (ans[index] != 'D') optD.setTextFill(Color.RED);
+        if (!Objects.equals(ans[index], "A")) optA.setTextFill(Color.RED);
+        if (!Objects.equals(ans[index], "B")) optB.setTextFill(Color.RED);
+        if (!Objects.equals(ans[index], "C")) optC.setTextFill(Color.RED);
+        if (!Objects.equals(ans[index], "D")) optD.setTextFill(Color.RED);
         bA.setDisable(true);
         bB.setDisable(true);
         bC.setDisable(true);
@@ -122,7 +136,7 @@ public class quizController {
                 optB.setTextFill(Color.BLACK);
                 optC.setTextFill(Color.BLACK);
                 optD.setTextFill(Color.BLACK);
-                guess = ' ';
+                guess = "";
                 index++;
                 seconds = 10;
                 seconds_left.setText("10");
@@ -158,12 +172,12 @@ public class quizController {
         comment.setVisible(true);
 
     }
-    boolean checkAnswer(char answer) {
-        return answer == ans[index];
+    boolean checkAnswer(String answer) {
+        return Objects.equals(answer, ans[index]);
     }
 
     public void opt1clicked(ActionEvent e) {
-        guess = 'A';
+        guess = "A";
         if (checkAnswer(guess)) {
             correct_ans++;
         }
@@ -171,7 +185,7 @@ public class quizController {
     }
 
     public void opt2clicked(ActionEvent e) {
-        guess = 'B';
+        guess = "A";
         if (checkAnswer(guess)) {
             correct_ans++;
         }
@@ -179,7 +193,7 @@ public class quizController {
     }
 
     public void opt3clicked(ActionEvent e) {
-        guess = 'C';
+        guess = "C";
         if (checkAnswer(guess)) {
             correct_ans++;
         }
@@ -187,7 +201,7 @@ public class quizController {
     }
 
     public void opt4clicked(ActionEvent e) {
-        guess = 'D';
+        guess = "D";
         if (checkAnswer(guess)) {
             correct_ans++;
         }
